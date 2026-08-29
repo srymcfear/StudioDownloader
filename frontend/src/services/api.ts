@@ -13,10 +13,31 @@ import type {
 
 const API_BASE = '/api';
 
+async function parseJsonResponse(res: Response): Promise<any> {
+  const text = await res.text();
+  try {
+    const data = JSON.parse(text);
+    if (!res.ok) {
+      throw new Error(data.detail || data.message || 'Yêu cầu không thành công');
+    }
+    return data;
+  } catch (err: any) {
+    if (!res.ok) {
+      if (text.includes('<!doctype html>') || text.includes('<html') || text.includes('DOCTYPE')) {
+        throw new Error('Máy chủ API (FastAPI :8000) tạm thời gián đoạn kết nối.');
+      }
+      throw new Error(err.message || 'Lỗi kết nối máy chủ.');
+    }
+    if (text.includes('<!doctype html>') || text.includes('<html')) {
+      throw new Error('Phản hồi từ máy chủ không phải JSON hợp lệ.');
+    }
+    throw err;
+  }
+}
+
 export async function checkHealth(): Promise<{ status: string; ffmpeg: string; ytdlp: string }> {
   const res = await fetch(`${API_BASE}/health`);
-  if (!res.ok) throw new Error('API server is not responding');
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export async function fetchMediaInfo(url: string, proxy?: string): Promise<VideoInfo | PlaylistInfo> {
@@ -26,12 +47,7 @@ export async function fetchMediaInfo(url: string, proxy?: string): Promise<Video
     body: JSON.stringify({ url, proxy })
   });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: 'Failed to extract video information' }));
-    throw new Error(err.detail || 'Failed to extract media info');
-  }
-
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export async function startDownloadTask(payload: DownloadRequestPayload): Promise<{ task_id: string; status: string }> {
@@ -41,12 +57,7 @@ export async function startDownloadTask(payload: DownloadRequestPayload): Promis
     body: JSON.stringify(payload)
   });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: 'Failed to start download task' }));
-    throw new Error(err.detail || 'Failed to start download');
-  }
-
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export async function startBatchDownloadTask(payload: BatchDownloadPayload): Promise<{ task_id: string; status: string; count: number }> {
@@ -56,12 +67,7 @@ export async function startBatchDownloadTask(payload: BatchDownloadPayload): Pro
     body: JSON.stringify(payload)
   });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: 'Failed to start batch download task' }));
-    throw new Error(err.detail || 'Failed to start batch download');
-  }
-
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export function subscribeToTaskProgress(
