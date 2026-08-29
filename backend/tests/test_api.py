@@ -15,12 +15,20 @@ async def test_health_endpoint():
         assert "ytdlp" in data
 
 @pytest.mark.asyncio
-async def test_info_invalid_url():
+async def test_info_invalid_url_ssrf_blocked():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.post("/api/info", json={"url": "https://google.com"})
         assert response.status_code == 400
-        assert "Only YouTube URLs are supported" in response.json()["detail"]
+        assert "không được hỗ trợ" in response.json()["detail"]
+
+@pytest.mark.asyncio
+async def test_info_private_ip_blocked():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post("/api/info", json={"url": "http://127.0.0.1:8080/test"})
+        assert response.status_code == 400
+        assert "IP nội bộ" in response.json()["detail"] or "không được hỗ trợ" in response.json()["detail"]
 
 def test_format_helpers():
     assert format_bytes(1024) == "1.0 KB"
