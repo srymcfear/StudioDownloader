@@ -1,0 +1,7 @@
+{
+  "telegram_bot_token": "123456789:TEST_MOCK_TOKEN",
+  "telegram_chat_id": "987654321",
+  "auto_sync_telegram": true,
+  "gdrive_enabled": false,
+  "gdrive_folder_id": ""
+}

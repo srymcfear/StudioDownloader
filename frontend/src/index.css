@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 20 20% 8%;
+    --foreground: 30 20% 95%;
+    --card: 20 20% 12%;
+    --card-foreground: 30 20% 95%;
+    --popover: 20 20% 10%;
+    --popover-foreground: 25 15% 70%;
+    --primary: 15 95% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 18% 18%;
+    --secondary-foreground: 30 20% 95%;
+    --muted: 20 18% 16%;
+    --muted-foreground: 25 12% 72%;
+    --accent: 20 20% 22%;
+    --accent-foreground: 30 20% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 24 15% 20%;
+    --input: 24 15% 20%;
+    --ring: 15 95% 55%;
+  }
+
+  body {
+    background-color: #121826;
+    background-image:
+      radial-gradient(ellipse 90% 70% at 50% 30%, rgba(15, 20, 32, 0.72) 0%, rgba(10, 13, 22, 0.88) 100%),
+      url('/custom_bg.png');
+    background-size: cover, cover;
+    background-position: center center, center center;
+    background-attachment: fixed, fixed;
+    background-repeat: no-repeat, no-repeat;
+    color: #F5EFEB;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Glass Panels & Cards with Custom Background */
+.glass-panel {
+  background: rgba(18, 24, 38, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(22, 30, 46, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card-hover {
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.glass-card-hover:hover {
+  background: rgba(52, 40, 35, 0.85);
+  border-color: rgba(249, 87, 33, 0.4);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #F95721 0%, #FF8C42 50%, #FFB074 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181412;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #332620;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a3830;
+}
+
+/* User Experience: Reduce Motion & Lag Prevention */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
