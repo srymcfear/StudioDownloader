@@ -390,9 +390,9 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
               return (
                 <div
                   key={idx}
-                  className={`relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border transition-all ${
+                  className={`relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border transition-colors ${
                     fmt.is_recommended
-                      ? 'border-blue-500/60 bg-blue-950/20 shadow-lg shadow-blue-500/10'
+                      ? 'border-blue-500/60 bg-blue-950/20 shadow-md shadow-blue-500/10'
                       : 'border-slate-800 hover:border-slate-700'
                   }`}
                 >
@@ -434,7 +434,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                       type="button"
                       disabled={isDownloading}
                       onClick={() => handleVideoDownload(fmt)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold text-xs shadow-md shadow-blue-600/20 transition-all transform active:scale-95 cursor-pointer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold text-xs shadow-md shadow-blue-600/20 transition-colors cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" /> Tải Video
                     </button>
