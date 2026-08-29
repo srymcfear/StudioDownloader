@@ -5,7 +5,7 @@ interface QualityBadgeProps {
   variant?: '4k' | '8k' | 'fhd' | 'audio' | 'hdr' | 'fps' | 'lossless' | 'default';
 }
 
-export const QualityBadge: React.FC<QualityBadgeProps> = ({ label, variant = 'default' }) => {
+export const QualityBadge: React.FC<QualityBadgeProps> = React.memo(({ label, variant = 'default' }) => {
   let badgeStyle = 'bg-slate-800 text-slate-300 border-slate-700';
 
   if (variant === '8k') {
@@ -27,4 +27,4 @@ export const QualityBadge: React.FC<QualityBadgeProps> = ({ label, variant = 'de
       {label}
     </span>
   );
-};
+});

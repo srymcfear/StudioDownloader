@@ -8,7 +8,7 @@ interface MediaInfoCardProps {
   onOpenAISummary?: () => void;
 }
 
-export const MediaInfoCard: React.FC<MediaInfoCardProps> = ({ info, onOpenAISummary }) => {
+export const MediaInfoCard: React.FC<MediaInfoCardProps> = React.memo(({ info, onOpenAISummary }) => {
   const [showDesc, setShowDesc] = useState(false);
 
   const formatNumber = (num?: number) => {
@@ -134,4 +134,4 @@ export const MediaInfoCard: React.FC<MediaInfoCardProps> = ({ info, onOpenAISumm
       </div>
     </div>
   );
-};
+});

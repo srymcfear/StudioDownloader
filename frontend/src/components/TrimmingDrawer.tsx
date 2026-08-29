@@ -12,7 +12,7 @@ interface TrimmingDrawerProps {
   onChange: (config: TrimConfig) => void;
 }
 
-export const TrimmingDrawer: React.FC<TrimmingDrawerProps> = ({
+export const TrimmingDrawer: React.FC<TrimmingDrawerProps> = React.memo(({
   duration,
   trimConfig,
   onChange,
@@ -303,4 +303,4 @@ export const TrimmingDrawer: React.FC<TrimmingDrawerProps> = ({
       )}
     </div>
   );
-};
+});

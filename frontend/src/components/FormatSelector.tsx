@@ -9,7 +9,7 @@ interface FormatSelectorProps {
   isDownloading: boolean;
 }
 
-export const FormatSelector: React.FC<FormatSelectorProps> = ({
+export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
   info,
   onStartDownload,
   isDownloading,
@@ -502,4 +502,4 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
       )}
     </div>
   );
-};
+});

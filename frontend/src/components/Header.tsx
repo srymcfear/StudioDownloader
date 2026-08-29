@@ -22,7 +22,7 @@ interface HeaderProps {
   serverOnline: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({
+export const Header: React.FC<HeaderProps> = React.memo(({
   workspaceMode,
   onWorkspaceModeChange,
   onOpenCommandPalette,
@@ -144,4 +144,4 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
     </header>
   );
-};
+});

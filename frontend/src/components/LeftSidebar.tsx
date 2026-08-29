@@ -17,7 +17,7 @@ interface LeftSidebarProps {
   onDeleteHistoryItem?: (id: string) => void;
 }
 
-export const LeftSidebar: React.FC<LeftSidebarProps> = ({
+export const LeftSidebar: React.FC<LeftSidebarProps> = React.memo(({
   history,
   onClearHistory,
   onDeleteHistoryItem,
@@ -172,4 +172,4 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
       </div>
     </aside>
   );
-};
+});
