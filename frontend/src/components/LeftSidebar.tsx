@@ -37,11 +37,11 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   if (isCollapsed) {
     return (
-      <aside className="w-10 flex flex-col items-center py-2 glass-panel rounded-2xl">
+      <aside className="w-10 flex flex-col items-center py-3 liquid-glass-panel rounded-3xl">
         <button
           type="button"
           onClick={() => setIsCollapsed(false)}
-          className="p-2 text-[#C4B8B0] hover:text-white rounded-lg hover:bg-[#2E2420] transition-colors cursor-pointer"
+          className="p-2 text-[#C4B8B0] hover:text-white rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
           title="Mở rộng lịch sử gần đây"
         >
           <ChevronRight className="w-4 h-4" />
@@ -55,16 +55,16 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   return (
     <aside className="w-full xl:w-60 flex-shrink-0 space-y-3">
-      <div className="p-3.5 rounded-2xl glass-panel shadow-xl space-y-3">
+      <div className="p-4 rounded-3xl liquid-glass-panel shadow-2xl space-y-3">
         {/* Header */}
-        <div className="flex items-center justify-between pb-2 border-b border-[rgba(232,168,124,0.12)]">
+        <div className="flex items-center justify-between pb-2 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#C4B8B0]" />
-            <h3 className="text-xs font-bold text-slate-200">
+            <Clock className="w-4 h-4 text-[#F95721]" />
+            <h3 className="text-xs font-bold text-white">
               Lịch sử gần đây
             </h3>
             {history.length > 0 && (
-              <span className="px-1.5 py-0.2 rounded bg-[#181412] text-[10px] text-[#C4B8B0] font-mono border border-[rgba(232,168,124,0.1)]">
+              <span className="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-white font-mono border border-white/10">
                 {history.length}
               </span>
             )}
@@ -75,7 +75,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
               <button
                 type="button"
                 onClick={handleClearWithConfirm}
-                className={`p-1 rounded transition-colors cursor-pointer text-xs ${
+                className={`p-1 rounded-lg transition-colors cursor-pointer text-xs ${
                   showConfirmClear
                     ? 'bg-rose-500/20 text-rose-300 font-semibold px-1.5'
                     : 'text-[#C4B8B0] hover:text-rose-400'
@@ -89,7 +89,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
             <button
               type="button"
               onClick={() => setIsCollapsed(true)}
-              className="p-1 text-[#C4B8B0] hover:text-white transition-colors cursor-pointer"
+              className="p-1 text-[#C4B8B0] hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
               title="Thu gọn"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
@@ -107,7 +107,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
             history.slice(0, 4).map((item) => (
               <div
                 key={item.id}
-                className="p-2.5 rounded-xl bg-[#241C18]/80 border border-[rgba(232,168,124,0.1)] flex items-center justify-between gap-2 group hover:border-[rgba(232,168,124,0.25)] transition-all"
+                className="p-2.5 rounded-2xl liquid-glass-card flex items-center justify-between gap-2 group"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 mb-1">
@@ -116,7 +116,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     ) : (
                       <Video className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
                     )}
-                    <span className="text-[10px] font-mono text-[#C4B8B0] uppercase font-semibold">
+                    <span className="text-[10px] font-mono text-slate-300 uppercase font-semibold">
                       {item.target_ext || 'MP3'} • {item.quality || '320k'}
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     <a
                       href={item.download_url}
                       download={item.filename}
-                      className="p-1.5 rounded-lg bg-[#181412] text-[#C4B8B0] hover:text-white hover:bg-[#2E2420] border border-[rgba(232,168,124,0.1)] transition-colors cursor-pointer"
+                      className="macos-btn macos-btn-secondary p-1.5 !rounded-lg text-slate-300 hover:text-white"
                       title="Lưu lại tệp"
                     >
                       <Download className="w-3.5 h-3.5" />
@@ -147,7 +147,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded-lg text-[#C4B8B0] hover:text-white hover:bg-[#2E2420] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-[#C4B8B0] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                       title="Mở liên kết gốc"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     <button
                       type="button"
                       onClick={() => onDeleteHistoryItem(item.id)}
-                      className="p-1.5 rounded-lg text-[#C4B8B0] hover:text-rose-400 hover:bg-[#2E2420] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-[#C4B8B0] hover:text-rose-400 hover:bg-white/10 transition-colors cursor-pointer"
                       title="Xóa khỏi lịch sử"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

@@ -39,10 +39,10 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
     <div className="w-full max-w-3xl mx-auto space-y-3">
       {/* Search Input Box */}
       <form onSubmit={handleSubmit} className="relative w-full">
-        <div className="relative flex items-center h-12 px-3 rounded-2xl bg-[#241C18]/80 backdrop-blur-md border border-[rgba(232,168,124,0.15)] shadow-2xl focus-within:border-[#F95721] focus-within:ring-2 focus-within:ring-[#F95721]/20 transition-all">
+        <div className="relative flex items-center h-13 px-4 rounded-3xl liquid-glass-panel shadow-2xl focus-within:border-[#F95721] focus-within:ring-2 focus-within:ring-[#F95721]/30 transition-all">
           {/* Link Icon */}
-          <div className="pl-1 pr-2 text-[#C4B8B0] flex-shrink-0">
-            <Link2 className="w-5 h-5 text-[#C4B8B0]" />
+          <div className="pl-1 pr-2.5 text-[#C4B8B0] flex-shrink-0">
+            <Link2 className="w-5 h-5 text-[#F95721]" />
           </div>
 
           {/* Text Input */}
