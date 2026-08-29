@@ -91,8 +91,8 @@
 
 Chỉ cần chạy tập lệnh tự động hóa:
 ```bash
-git clone https://github.com/<your-username>/FEAR-TubeStudio.git
-cd FEAR-TubeStudio
+git clone https://github.com/srymcfear/StudioDownloader.git
+cd StudioDownloader
 chmod +x start.sh
 ./start.sh
 ```
