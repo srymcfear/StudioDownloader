@@ -78,6 +78,32 @@ export function subscribeToTaskProgress(
   let isDone = false;
   const eventSource = new EventSource(`${API_BASE}/download/progress/${taskId}`);
 
+  let sseReceived = false;
+  let pollInterval: any = null;
+
+  const startPoller = () => {
+    if (pollInterval || isDone) return;
+    pollInterval = setInterval(async () => {
+      if (isDone) {
+        clearInterval(pollInterval);
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/download/status/${taskId}`);
+        if (res.ok) {
+          const data: TaskProgress = await res.json();
+          onProgress(data);
+          if (data.status === 'completed' || data.status === 'error') {
+            isDone = true;
+            cleanup();
+          }
+        }
+      } catch (e) {
+        // ignore transient fetch errors
+      }
+    }, 1200);
+  };
+
   const handleData = (rawText: string) => {
     try {
       let cleaned = rawText.trim();
@@ -85,6 +111,11 @@ export function subscribeToTaskProgress(
         cleaned = cleaned.replace(/^data:\s*/, '').trim();
       }
       const data: TaskProgress = JSON.parse(cleaned);
+      sseReceived = true;
+      if (pollInterval) {
+        clearInterval(pollInterval);
+        pollInterval = null;
+      }
       onProgress(data);
       if (data.status === 'completed' || data.status === 'error') {
         isDone = true;
@@ -102,32 +133,25 @@ export function subscribeToTaskProgress(
   };
 
   eventSource.onerror = (err) => {
-    console.warn('EventSource warning, relying on status poller:', err);
+    console.warn('EventSource disconnected, starting adaptive poller:', err);
     if (onError && isDone) {
       onError(new Error('EventSource connection ended'));
     }
+    if (!isDone) {
+      startPoller();
+    }
   };
 
-  // Fallback poller every 800ms to guarantee 100% update reliability
-  const poller = setInterval(async () => {
-    if (isDone) return;
-    try {
-      const res = await fetch(`${API_BASE}/download/status/${taskId}`);
-      if (res.ok) {
-        const data: TaskProgress = await res.json();
-        onProgress(data);
-        if (data.status === 'completed' || data.status === 'error') {
-          isDone = true;
-          cleanup();
-        }
-      }
-    } catch (e) {
-      // ignore transient fetch errors
+  // Only start poller if no SSE data arrives within 3 seconds
+  const fallbackTimer = setTimeout(() => {
+    if (!sseReceived && !isDone) {
+      startPoller();
     }
-  }, 800);
+  }, 3000);
 
   const cleanup = () => {
-    clearInterval(poller);
+    clearTimeout(fallbackTimer);
+    if (pollInterval) clearInterval(pollInterval);
     try {
       eventSource.close();
     } catch (e) {}
