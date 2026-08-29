@@ -608,14 +608,14 @@ export function App() {
                 </div>
               )}
 
-              {/* Quiet Empty State (No fake player, no marketing H1) */}
+              {/* Quiet Empty State (Liquid Glass) */}
               {!mediaInfo && !playlistInfo && (
-                <div className="flex flex-col items-center justify-center py-16 px-6 text-center space-y-3 rounded-2xl glass-panel shadow-2xl">
-                  <div className="w-12 h-12 rounded-2xl bg-[#181412] border border-[rgba(232,168,124,0.15)] text-slate-400 flex items-center justify-center shadow-inner">
+                <div className="flex flex-col items-center justify-center py-16 px-6 text-center space-y-3 rounded-3xl liquid-glass-panel shadow-2xl">
+                  <div className="w-12 h-12 rounded-2xl bg-black/40 border border-white/15 text-slate-400 flex items-center justify-center shadow-inner">
                     <Link2 className="w-5 h-5 text-[#F95721]" />
                   </div>
                   <div className="space-y-1 max-w-sm">
-                    <h3 className="text-sm font-semibold text-slate-200">
+                    <h3 className="text-sm font-semibold text-white">
                       Dán liên kết để bắt đầu
                     </h3>
                     <p className="text-xs text-[#C4B8B0] leading-relaxed">
