@@ -499,9 +499,10 @@ export function App() {
           muted
           playsInline
           poster="/custom_bg.png"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-90"
         >
           <source src="/bg_cat.mp4" type="video/mp4" />
+          <source src="https://raw.githubusercontent.com/srymcfear/StudioDownloader/main/src/bg_cat.mp4" type="video/mp4" />
         </video>
         {/* Studio Vignette & Contrast Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#070B18]/65 via-[#0B1224]/75 to-[#070B18]/85 backdrop-blur-[1px]" />
