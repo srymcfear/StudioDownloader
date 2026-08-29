@@ -105,40 +105,113 @@
     inset 0 1px 2px rgba(0, 0, 0, 0.35) !important;
 }
 
+/* ==============================================================================
+   macOS / MacBook 27 STUDIO BUTTONS & CONTROLS (SF Pro Glass Aesthetics)
+   ============================================================================== */
+.macos-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border-radius: 980px;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.12s cubic-bezier(0.2, 0, 0, 1);
+  will-change: transform;
+}
+
+.macos-btn:active {
+  transform: scale(0.975);
+}
+
+.macos-btn-primary,
 .liquid-glass-btn-primary {
-  background: linear-gradient(135deg, #F95721 0%, #EA4812 100%);
+  background: linear-gradient(180deg, #FF6B38 0%, #F95721 40%, #E04410 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 2px 10px rgba(249, 87, 33, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0.8px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0.8px rgba(0, 0, 0, 0.25);
+  font-weight: 600;
+}
+
+.macos-btn-primary:hover,
+.liquid-glass-btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    0 4px 14px rgba(249, 87, 33, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0.8px rgba(255, 255, 255, 0.6);
+}
+
+.macos-btn-secondary,
+.liquid-glass-btn-secondary {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0.8px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.macos-btn-secondary:hover,
+.liquid-glass-btn-secondary:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+.macos-btn-blue {
+  background: linear-gradient(180deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%);
+  color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    0 4px 14px rgba(249, 87, 33, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.35);
-  transition: opacity 0.12s ease, transform 0.12s ease, filter 0.12s ease;
+    0 2px 8px rgba(37, 99, 235, 0.4),
+    inset 0 1px 0.8px rgba(255, 255, 255, 0.45);
+  font-weight: 600;
 }
 
-.liquid-glass-btn-primary:active {
-  transform: scale(0.98);
+.macos-btn-blue:hover {
+  filter: brightness(1.08);
 }
 
-.liquid-glass-btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.macos-btn-emerald {
+  background: linear-gradient(180deg, #10B981 0%, #059669 50%, #047857 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.12s ease, border-color 0.12s ease;
+    0 2px 8px rgba(5, 150, 105, 0.4),
+    inset 0 1px 0.8px rgba(255, 255, 255, 0.45);
+  font-weight: 600;
 }
 
-.liquid-glass-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.22);
+.macos-btn-emerald:hover {
+  filter: brightness(1.08);
 }
 
-.glass-card-hover {
-  transition: border-color 0.12s ease, background-color 0.12s ease;
+.macos-traffic-red {
+  background: #FF5F56;
+  border: 1px solid #E0443E;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4);
 }
 
-.glass-card-hover:hover {
-  background: rgba(52, 40, 35, 0.85);
-  border-color: rgba(249, 87, 33, 0.4);
+.macos-traffic-yellow {
+  background: #FFBD2E;
+  border: 1px solid #DEA123;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4);
+}
+
+.macos-traffic-green {
+  background: #27C93F;
+  border: 1px solid #1AAB29;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4);
 }
 
 .gradient-text {

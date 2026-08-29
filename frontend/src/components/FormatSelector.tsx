@@ -227,13 +227,13 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">Chất lượng cao nhất</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">Chất lượng cao nhất</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('mp3', '320k', 'MP3 320 kbps')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F95721] hover:bg-[#EA4812] disabled:opacity-50 text-white font-semibold text-xs shadow-md shadow-[#F95721]/20 transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải MP3 320 kbps
                 </button>
@@ -241,26 +241,26 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
 
             {/* FLAC Lossless */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-teal-500/40 bg-teal-950/20 shadow-md">
+            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 border border-emerald-500/30">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-base text-white">FLAC Lossless</span>
                     <QualityBadge label="100% Gốc" variant="lossless" />
                   </div>
-                  <p className="text-xs text-slate-400 leading-tight">
+                  <p className="text-xs text-[#C4B8B0] leading-tight">
                     Âm thanh không nén • Giữ nguyên vẹn 100% độ trung thực
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">Lossless Audio</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">Lossless Audio</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('flac', '0', 'FLAC Lossless')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white font-semibold text-xs shadow-md transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-emerald px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải FLAC
                 </button>
@@ -268,26 +268,26 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
 
             {/* WAV Studio Master */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-slate-800 hover:border-slate-700">
+            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-base text-white">WAV PCM</span>
                     <QualityBadge label="Master" variant="lossless" />
                   </div>
-                  <p className="text-xs text-slate-400 leading-tight">
+                  <p className="text-xs text-[#C4B8B0] leading-tight">
                     Định dạng sóng âm thanh nguyên bản cho phòng thu & DJ
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">Uncompressed</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">Uncompressed</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('wav', '0', 'WAV Lossless')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white font-semibold text-xs transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-secondary px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải WAV
                 </button>
@@ -295,26 +295,26 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
 
             {/* M4A / AAC 256k */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-slate-800 hover:border-slate-700">
+            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-base text-white">Apple M4A (AAC)</span>
                     <QualityBadge label="256 kbps" variant="audio" />
                   </div>
-                  <p className="text-xs text-slate-400 leading-tight">
+                  <p className="text-xs text-[#C4B8B0] leading-tight">
                     Âm thanh trong trẻo, tương thích chuẩn iTunes & iOS
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">AAC High Profile</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">AAC High Profile</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('m4a', '256k', 'M4A 256k')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white font-semibold text-xs transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-secondary px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải M4A
                 </button>
@@ -322,26 +322,26 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
 
             {/* MP3 192k */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-slate-800 hover:border-slate-700">
+            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-base text-white">MP3 192kbps</span>
                     <QualityBadge label="Tiêu chuẩn" variant="default" />
                   </div>
-                  <p className="text-xs text-slate-400 leading-tight">
+                  <p className="text-xs text-[#C4B8B0] leading-tight">
                     Dung lượng gọn nhẹ, phù hợp nghe trên điện thoại
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">Tiết kiệm bộ nhớ</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">Tiết kiệm bộ nhớ</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('mp3', '192k', 'MP3 192k')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white font-semibold text-xs transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-secondary px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải MP3 192k
                 </button>
@@ -349,26 +349,26 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
 
             {/* Original Opus */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-slate-800 hover:border-slate-700">
+            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-base text-white">Native Opus</span>
                     <QualityBadge label="Web Audio" variant="default" />
                   </div>
-                  <p className="text-xs text-slate-400 leading-tight">
+                  <p className="text-xs text-[#C4B8B0] leading-tight">
                     Định dạng âm thanh gốc của YouTube, trích xuất siêu nhanh
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-mono">Trích xuất trực tiếp</span>
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                <span className="text-[#C4B8B0] font-mono">Trích xuất trực tiếp</span>
                 <button
                   type="button"
                   disabled={isDownloading}
                   onClick={() => handleCustomAudioDownload('opus', '0', 'Opus Native')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white font-semibold text-xs transition-all transform active:scale-95 cursor-pointer"
+                  className="macos-btn macos-btn-secondary px-3.5 py-1.5 rounded-full text-xs font-semibold"
                 >
                   <Download className="w-3.5 h-3.5" /> Tải Opus
                 </button>
@@ -390,10 +390,10 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
               return (
                 <div
                   key={idx}
-                  className={`relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border transition-colors ${
+                  className={`relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 ${
                     fmt.is_recommended
-                      ? 'border-blue-500/60 bg-blue-950/20 shadow-md shadow-blue-500/10'
-                      : 'border-slate-800 hover:border-slate-700'
+                      ? 'border border-blue-500/50 bg-blue-500/10 shadow-lg shadow-blue-500/15'
+                      : ''
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -407,14 +407,14 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                           variant="default"
                         />
                       </div>
-                      <p className="text-xs text-slate-400 mt-1">
+                      <p className="text-xs text-[#C4B8B0] mt-1">
                         {fmt.note || (isUltra ? 'Ultra High Definition' : isHigh ? 'Full HD Video' : 'Standard')}
                       </p>
                     </div>
 
                     <div className="flex flex-col items-end gap-1">
                       {fmt.is_recommended && (
-                        <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold">
+                        <span className="px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold shadow-sm">
                           Khuyên dùng
                         </span>
                       )}
@@ -424,9 +424,9 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                    <span className="text-slate-400 flex items-center gap-1 font-mono">
-                      <HardDrive className="w-3.5 h-3.5 text-slate-500" />
+                  <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                    <span className="text-[#C4B8B0] flex items-center gap-1 font-mono">
+                      <HardDrive className="w-3.5 h-3.5 text-slate-400" />
                       {fmt.filesize_formatted || 'Dung lượng tối ưu'}
                     </span>
 
@@ -434,7 +434,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                       type="button"
                       disabled={isDownloading}
                       onClick={() => handleVideoDownload(fmt)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold text-xs shadow-md shadow-blue-600/20 transition-colors cursor-pointer"
+                      className="macos-btn macos-btn-blue px-3.5 py-1.5 rounded-full text-xs font-semibold"
                     >
                       <Download className="w-3.5 h-3.5" /> Tải Video
                     </button>

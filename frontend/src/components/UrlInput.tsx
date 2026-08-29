@@ -61,7 +61,7 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
               <button
                 type="button"
                 onClick={() => setUrl('')}
-                className="w-8 h-8 flex items-center justify-center text-[#C4B8B0] hover:text-white rounded-lg hover:bg-[#2E2420] transition-colors cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center text-[#C4B8B0] hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 title="Xóa URL"
               >
                 <X className="w-4 h-4" />
@@ -70,7 +70,7 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
               <button
                 type="button"
                 onClick={handlePaste}
-                className="flex items-center gap-1 h-8 px-2.5 text-xs font-semibold text-[#C4B8B0] hover:text-white bg-[#181412] hover:bg-[#2E2420] rounded-lg border border-[rgba(232,168,124,0.15)] transition-all cursor-pointer"
+                className="macos-btn macos-btn-secondary h-8 px-3 rounded-xl text-xs"
                 title="Dán (⌘V)"
               >
                 <Clipboard className="w-3.5 h-3.5 text-[#C4B8B0]" />
@@ -79,11 +79,11 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
               </button>
             )}
 
-            {/* Primary Action Button (Flame Orange) */}
+            {/* Primary Action Button (MacBook Style Flame) */}
             <button
               type="submit"
               disabled={isLoading || !url.trim()}
-              className="flex items-center gap-1.5 h-9 px-4 bg-[#F95721] hover:bg-[#EA4812] active:scale-98 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-[#F95721]/25 transition-all cursor-pointer"
+              className="macos-btn macos-btn-primary h-8 px-4 rounded-xl text-xs sm:text-sm disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
@@ -103,7 +103,7 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
         YouTube, TikTok, Facebook, Instagram, SoundCloud, X — không watermark.
       </p>
 
-      {/* Sample Chips (Single row of 4 chips, label = content name only) */}
+      {/* Sample Chips (MacBook Pills) */}
       <div className="flex items-center justify-center gap-2 flex-wrap pt-1">
         {sampleChips.map((chip, idx) => (
           <button
@@ -113,7 +113,7 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
               setUrl(chip.url);
               onExtract(chip.url);
             }}
-            className="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-[#241C18]/90 hover:bg-[#2E2420] text-[#C4B8B0] hover:text-white border border-[rgba(232,168,124,0.12)] hover:border-[rgba(232,168,124,0.25)] transition-all text-xs font-medium cursor-pointer"
+            className="macos-btn macos-btn-secondary h-8 px-3 rounded-full text-xs font-medium"
           >
             <Play className="w-3 h-3 text-[#F95721] fill-[#F95721]" />
             <span>{chip.label}</span>
