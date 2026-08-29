@@ -491,8 +491,15 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-transparent text-slate-100 flex flex-col font-sans selection:bg-[#F95721]/30 selection:text-white">
-      {/* Dynamic Background Video Layer */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      {/* Dynamic Background Video Layer (GPU Isolated) */}
+      <div
+        className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
+        style={{
+          transform: 'translate3d(0, 0, 0)',
+          backfaceVisibility: 'hidden',
+          contain: 'strict',
+        }}
+      >
         <video
           autoPlay
           loop
@@ -500,12 +507,13 @@ export function App() {
           playsInline
           poster="/custom_bg.png"
           className="w-full h-full object-cover opacity-90"
+          style={{ transform: 'translateZ(0)' }}
         >
           <source src="/bg_cat.mp4" type="video/mp4" />
           <source src="https://raw.githubusercontent.com/srymcfear/StudioDownloader/main/src/bg_cat.mp4" type="video/mp4" />
         </video>
         {/* Studio Vignette & Contrast Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070B18]/65 via-[#0B1224]/75 to-[#070B18]/85 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070B18]/65 via-[#0B1224]/75 to-[#070B18]/85" />
       </div>
 
       {/* Top Header */}
