@@ -58,17 +58,17 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
   };
 
   return (
-    <div className="w-full glass-panel rounded-2xl p-4 sm:p-6 border border-slate-800/90 shadow-xl space-y-5">
+    <div className="w-full liquid-glass-panel rounded-3xl p-5 sm:p-6 space-y-5">
       {/* Tabs Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3 pb-2 border-b border-slate-800">
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900/80 rounded-xl border border-slate-800">
+      <div className="flex items-center justify-between flex-wrap gap-3 pb-2 border-b border-white/10">
+        <div className="flex items-center gap-1.5 p-1 bg-black/40 rounded-2xl border border-white/10">
           <button
             type="button"
             onClick={() => setActiveTab('audio')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               activeTab === 'audio'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                ? 'bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 shadow-lg shadow-emerald-500/20'
+                : 'text-[#C4B8B0] hover:text-white hover:bg-white/[0.06]'
             }`}
           >
             <Music className="w-4 h-4" />
@@ -78,10 +78,10 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('video')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               activeTab === 'video'
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                ? 'bg-blue-500/30 text-blue-300 border border-blue-400/50 shadow-lg shadow-blue-500/20'
+                : 'text-[#C4B8B0] hover:text-white hover:bg-white/[0.06]'
             }`}
           >
             <Video className="w-4 h-4" />
@@ -91,10 +91,10 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('extra')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               activeTab === 'extra'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                ? 'bg-purple-500/30 text-purple-300 border border-purple-400/50 shadow-lg shadow-purple-500/20'
+                : 'text-[#C4B8B0] hover:text-white hover:bg-white/[0.06]'
             }`}
           >
             <Subtitles className="w-4 h-4" />
@@ -104,14 +104,14 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
 
         {/* Video format toggle (MP4 vs MKV) */}
         {activeTab === 'video' && (
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-[#C4B8B0]">
             <span>Định dạng:</span>
-            <div className="flex bg-slate-900 rounded-lg p-0.5 border border-slate-800">
+            <div className="flex bg-black/40 rounded-xl p-1 border border-white/10">
               <button
                 type="button"
                 onClick={() => setTargetExt('mp4')}
-                className={`px-2.5 py-1 rounded-md font-medium transition-colors cursor-pointer ${
-                  targetExt === 'mp4' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1 rounded-lg font-bold transition-colors cursor-pointer ${
+                  targetExt === 'mp4' ? 'bg-blue-600 text-white shadow-sm' : 'text-[#C4B8B0] hover:text-white'
                 }`}
               >
                 MP4
@@ -119,8 +119,8 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
               <button
                 type="button"
                 onClick={() => setTargetExt('mkv')}
-                className={`px-2.5 py-1 rounded-md font-medium transition-colors cursor-pointer ${
-                  targetExt === 'mkv' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1 rounded-lg font-bold transition-colors cursor-pointer ${
+                  targetExt === 'mkv' ? 'bg-blue-600 text-white shadow-sm' : 'text-[#C4B8B0] hover:text-white'
                 }`}
               >
                 MKV

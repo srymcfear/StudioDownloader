@@ -95,21 +95,21 @@ export const TrimmingDrawer: React.FC<TrimmingDrawerProps> = ({
   const endPercent = (endSec / maxDuration) * 100;
 
   return (
-    <div className="glass-card rounded-2xl p-4 sm:p-5 border border-slate-700/70 shadow-xl space-y-4">
+    <div className="liquid-glass-panel rounded-3xl p-5 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
+          <div className="p-2 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
             <Scissors className="w-5 h-5" />
           </div>
           <div>
             <h4 className="text-sm font-bold text-white flex items-center gap-2">
               Trình Cắt Nhạc & Video Studio (Interactive Waveform)
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30">
                 PRO TIMELINE
               </span>
             </h4>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#C4B8B0]">
               Kéo thả mốc thời gian hoặc chọn preset để lấy đoạn nhạc chuông / TikTok
             </p>
           </div>
@@ -123,35 +123,35 @@ export const TrimmingDrawer: React.FC<TrimmingDrawerProps> = ({
             onChange={(e) => handleToggle(e.target.checked)}
             className="sr-only peer"
           />
-          <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500 shadow-inner"></div>
+          <div className="w-11 h-6 bg-black/50 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#F95721] shadow-inner border border-white/10"></div>
         </label>
       </div>
 
       {trimConfig.enabled && (
-        <div className="pt-2 border-t border-slate-700/60 space-y-4">
+        <div className="pt-2 border-t border-white/10 space-y-4">
           {/* Quick Studio Presets */}
           <div className="flex items-center gap-2 flex-wrap text-xs">
-            <span className="text-slate-400 font-medium text-[11px] flex items-center gap-1">
+            <span className="text-[#C4B8B0] font-medium text-[11px] flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Presets nhanh:
             </span>
             <button
               type="button"
               onClick={handlePresetRingtone}
-              className="px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-slate-700/80 hover:border-amber-500/40 text-[11px] font-semibold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-xl bg-white/[0.06] hover:bg-amber-500/20 text-slate-200 hover:text-amber-300 border border-white/10 hover:border-amber-500/40 text-[11px] font-semibold transition-all cursor-pointer"
             >
               🔔 30s Nhạc Chuông
             </button>
             <button
               type="button"
               onClick={handlePresetShorts}
-              className="px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-blue-500/20 text-slate-300 hover:text-blue-300 border border-slate-700/80 hover:border-blue-500/40 text-[11px] font-semibold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-xl bg-white/[0.06] hover:bg-blue-500/20 text-slate-200 hover:text-blue-300 border border-white/10 hover:border-blue-500/40 text-[11px] font-semibold transition-all cursor-pointer"
             >
               📱 60s TikTok / Shorts
             </button>
             <button
               type="button"
               onClick={handlePresetChorus}
-              className="px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-purple-500/20 text-slate-300 hover:text-purple-300 border border-slate-700/80 hover:border-purple-500/40 text-[11px] font-semibold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-xl bg-white/[0.06] hover:bg-purple-500/20 text-slate-200 hover:text-purple-300 border border-white/10 hover:border-purple-500/40 text-[11px] font-semibold transition-all cursor-pointer"
             >
               🔥 15s Hook / Điệp Khúc
             </button>
