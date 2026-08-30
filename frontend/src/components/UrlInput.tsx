@@ -6,7 +6,14 @@ interface UrlInputProps {
   isLoading: boolean;
 }
 
-export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
+const SAMPLE_CHIPS = [
+  { label: 'Sơn Tùng M-TP', url: 'https://www.youtube.com/watch?v=zoEtcR5EW08' },
+  { label: 'TikTok Hot Dance', url: 'https://www.tiktok.com/@tiktok/video/7106594312292453678' },
+  { label: 'Alan Walker Faded', url: 'https://soundcloud.com/alanwalker/faded' },
+  { label: 'Costa Rica 4K', url: 'https://www.youtube.com/watch?v=LXb3EKWsInQ' },
+];
+
+export const UrlInput: React.FC<UrlInputProps> = React.memo(({ onExtract, isLoading }) => {
   const [url, setUrl] = useState('');
 
   const handlePaste = async () => {
@@ -27,13 +34,6 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
       onExtract(url.trim());
     }
   };
-
-  const sampleChips = [
-    { label: 'Sơn Tùng M-TP', url: 'https://www.youtube.com/watch?v=zoEtcR5EW08' },
-    { label: 'TikTok Hot Dance', url: 'https://www.tiktok.com/@tiktok/video/7106594312292453678' },
-    { label: 'Alan Walker Faded', url: 'https://soundcloud.com/alanwalker/faded' },
-    { label: 'Costa Rica 4K', url: 'https://www.youtube.com/watch?v=LXb3EKWsInQ' },
-  ];
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-3">
@@ -105,7 +105,7 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
 
       {/* Sample Chips (MacBook Pills) */}
       <div className="flex items-center justify-center gap-2 flex-wrap pt-1">
-        {sampleChips.map((chip, idx) => (
+        {SAMPLE_CHIPS.map((chip, idx) => (
           <button
             key={idx}
             type="button"
@@ -122,4 +122,4 @@ export const UrlInput: React.FC<UrlInputProps> = ({ onExtract, isLoading }) => {
       </div>
     </div>
   );
-};
+});

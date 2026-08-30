@@ -4,6 +4,7 @@ import ipaddress
 import unicodedata
 import threading
 import urllib.parse
+import asyncio
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Body
 from fastapi.responses import FileResponse
@@ -244,7 +245,7 @@ async def summarize_video_endpoint(req: AISummaryRequest):
 
 
 @router.post("/download/start")
-async def start_download(req: DownloadRequest, background_tasks: BackgroundTasks):
+async def start_download(req: DownloadRequest):
     url = _validate_youtube_url(req.url)
     req.url = url
     req.proxy = _validate_proxy(req.proxy)
@@ -309,7 +310,7 @@ async def get_progress_stream(task_id: str):
     task = task_manager.get_task(task_id)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found.")
-    return EventSourceResponse(task_manager.subscribe(task_id))
+    return EventSourceResponse(task_manager.subscribe(task_id), ping=15)
 
 
 @router.get("/download/status/{task_id}", response_model=TaskProgress)
@@ -478,12 +479,12 @@ async def toggle_watched_channel(channel_id: str, auto_download: bool = Body(...
 
 @router.post("/watcher/channel/{channel_id}/scan")
 async def scan_single_channel(channel_id: str):
-    res = channel_watcher.scan_channel(channel_id)
+    res = await asyncio.to_thread(channel_watcher.scan_channel, channel_id)
     return res
 
 @router.post("/watcher/scan-all")
 async def scan_all_watched_channels():
-    res = channel_watcher.scan_all_channels()
+    res = await asyncio.to_thread(channel_watcher.scan_all_channels)
     return {"status": "success", "results": res}
 
 
@@ -506,5 +507,5 @@ async def send_task_file_to_telegram(task_id: str):
     file_path = task_manager.task_files.get(task_id)
     if not file_path or not file_path.exists():
         raise HTTPException(status_code=404, detail="Không tìm thấy file của tác vụ đã chỉ định.")
-    res = cloud_sync.send_file_to_telegram(file_path)
+    res = await asyncio.to_thread(cloud_sync.send_file_to_telegram, file_path)
     return res

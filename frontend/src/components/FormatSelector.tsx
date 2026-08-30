@@ -211,7 +211,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {/* MP3 320 kbps Ultra */}
-            <div className="relative glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-[#F95721]/50 bg-[#F95721]/5 shadow-lg shadow-[#F95721]/5">
+            <div className="relative liquid-glass-card rounded-xl p-4 flex flex-col justify-between gap-3 border border-[#F95721]/50 bg-[#F95721]/5 shadow-lg shadow-[#F95721]/5">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -241,7 +241,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
             </div>
 
             {/* FLAC Lossless */}
-            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 border border-emerald-500/30">
+            <div className="relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 border border-emerald-500/30">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
             </div>
 
             {/* WAV Studio Master */}
-            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
+            <div className="relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -295,7 +295,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
             </div>
 
             {/* M4A / AAC 256k */}
-            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
+            <div className="relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -322,7 +322,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
             </div>
 
             {/* MP3 192k */}
-            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
+            <div className="relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -349,7 +349,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
             </div>
 
             {/* Original Opus */}
-            <div className="relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
+            <div className="relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -390,7 +390,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
               return (
                 <div
                   key={idx}
-                  className={`relative liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 ${
+                  className={`relative liquid-liquid-glass-card rounded-2xl p-4 flex flex-col justify-between gap-3 ${
                     fmt.is_recommended
                       ? 'border border-blue-500/50 bg-blue-500/10 shadow-lg shadow-blue-500/15'
                       : ''
@@ -450,7 +450,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = React.memo(({
       {activeTab === 'extra' && (
         <div className="space-y-4">
           {/* Thumbnail download */}
-          <div className="p-4 rounded-xl glass-card border border-slate-800 flex items-center justify-between">
+          <div className="p-4 rounded-xl liquid-glass-card border border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400">
                 <ImageIcon className="w-5 h-5" />

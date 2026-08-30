@@ -10,6 +10,9 @@ import subprocess
 from pathlib import Path
 from typing import AsyncGenerator
 import yt_dlp
+import logging
+
+logger = logging.getLogger(__name__)
 
 from app.config import settings
 from app.services.ffmpeg_service import get_ffmpeg_executable
@@ -26,10 +29,21 @@ class TaskManager:
         self.tasks: dict[str, TaskProgress] = {}
         self.task_files: dict[str, Path] = {}
         self.subscribers: dict[str, list[asyncio.Queue]] = {}
+        self.task_timestamps: dict[str, float] = {}
         self.lock = threading.Lock()
         self.ffmpeg_path = get_ffmpeg_executable()
         # VULN-03: cap simultaneous yt-dlp/FFmpeg threads to prevent CPU exhaustion DoS
         self._download_semaphore = threading.Semaphore(settings.MAX_CONCURRENT_DOWNLOADS)
+
+    def cleanup_expired_tasks(self, max_age_seconds: int = 7200):
+        with self.lock:
+            now = time.time()
+            expired = [tid for tid, ts in self.task_timestamps.items() if now - ts > max_age_seconds]
+            for tid in expired:
+                self.tasks.pop(tid, None)
+                self.task_files.pop(tid, None)
+                self.subscribers.pop(tid, None)
+                self.task_timestamps.pop(tid, None)
 
     def create_task(self) -> str:
         task_id = str(uuid.uuid4())
@@ -41,6 +55,7 @@ class TaskManager:
                 message="Đang xếp hàng đợi xử lý..."
             )
             self.subscribers[task_id] = []
+            self.task_timestamps[task_id] = time.time()
         return task_id
 
     def _is_valid_task_id(self, task_id: str) -> bool:
@@ -323,10 +338,14 @@ class TaskManager:
                     "-c", "copy",
                     str(trimmed_file)
                 ]
-                res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                if res.returncode == 0 and trimmed_file.exists():
-                    actual_file.unlink(missing_ok=True)
-                    actual_file = trimmed_file
+                try:
+                    res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=600)
+                    if res.returncode == 0 and trimmed_file.exists():
+                        actual_file.unlink(missing_ok=True)
+                        actual_file = trimmed_file
+                except subprocess.TimeoutExpired:
+                    logger.error(f"FFmpeg trim timeout for {task_id}")
+                    raise RuntimeError("FFmpeg processing timeout")
 
             # AI & DSP Audio Enhancement (Plan 2)
             has_effect = request.audio_effect and request.audio_effect != "none"
@@ -368,10 +387,14 @@ class TaskManager:
                         "-b:a", request.audio_bitrate if hasattr(request, 'audio_bitrate') and request.audio_bitrate else "320k",
                         str(processed_file)
                     ]
-                    res_af = subprocess.run(cmd_af, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    if res_af.returncode == 0 and processed_file.exists():
-                        actual_file.unlink(missing_ok=True)
-                        actual_file = processed_file
+                    try:
+                        res_af = subprocess.run(cmd_af, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=600)
+                        if res_af.returncode == 0 and processed_file.exists():
+                            actual_file.unlink(missing_ok=True)
+                            actual_file = processed_file
+                    except subprocess.TimeoutExpired:
+                        logger.error(f"FFmpeg audio effect timeout for {task_id}")
+                        raise RuntimeError("FFmpeg processing timeout")
 
             clean_display_name = actual_file.name.replace(f"{task_id}_", "")
             if clean_display_name.startswith("trimmed_"):

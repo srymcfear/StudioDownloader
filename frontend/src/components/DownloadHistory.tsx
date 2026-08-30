@@ -44,7 +44,7 @@ export const DownloadHistory: React.FC<DownloadHistoryProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-md transition-all">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50  transition-all">
       <div className="relative w-full max-w-2xl rounded-3xl liquid-glass-modal p-6 space-y-5 max-h-[85vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/10">

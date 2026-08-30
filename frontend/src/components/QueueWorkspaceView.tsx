@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { TaskProgress, HistoryItem } from '../types';
 import {
   Layers,
@@ -19,11 +19,14 @@ interface QueueWorkspaceViewProps {
   onSelectSample?: (url: string) => void;
 }
 
-export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = ({
+export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = React.memo(({
   activeTasks,
   history,
   onClearHistory,
 }) => {
+  const activeTaskCount = useMemo(() => activeTasks.filter((t) => t.status !== 'completed' && t.status !== 'error').length, [activeTasks]);
+  const historyCount = useMemo(() => history.length, [history]);
+
   return (
     <div className="space-y-6">
       {/* Overview Stats */}
@@ -32,7 +35,7 @@ export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = ({
           <span className="text-xs text-[#C4B8B0] font-medium">Tác vụ đang xử lý</span>
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold font-mono text-blue-400">
-              {activeTasks.filter((t) => t.status !== 'completed' && t.status !== 'error').length}
+              {activeTaskCount}
             </span>
             <span className="text-xs text-slate-400">tệp trong luồng</span>
           </div>
@@ -42,7 +45,7 @@ export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = ({
           <span className="text-xs text-[#C4B8B0] font-medium">Đã hoàn thành phiên</span>
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold font-mono text-emerald-400">
-              {history.length}
+              {historyCount}
             </span>
             <span className="text-xs text-slate-400">tệp đã xuất</span>
           </div>
@@ -140,7 +143,7 @@ export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = ({
         <div className="p-4 bg-black/30 border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-sm font-bold text-white">Kho tệp đã hoàn tất ({history.length})</h3>
+            <h3 className="text-sm font-bold text-white">Kho tệp đã hoàn tất ({historyCount})</h3>
           </div>
           {history.length > 0 && (
             <button
@@ -199,4 +202,4 @@ export const QueueWorkspaceView: React.FC<QueueWorkspaceViewProps> = ({
       </div>
     </div>
   );
-};
+});

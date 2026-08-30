@@ -32,6 +32,96 @@ interface CommandItem {
   payload?: any;
 }
 
+const COMMAND_ITEMS: CommandItem[] = [
+  {
+    id: 'paste_url',
+    category: 'Thao tác nhanh',
+    title: 'Dán link từ Clipboard',
+    subtitle: 'Tự động quét và phân tích link YouTube trong bộ nhớ tạm',
+    icon: Clipboard,
+    hotkey: '⌘ + V',
+  },
+  {
+    id: 'quick_mp3_320k',
+    category: 'Xuất âm thanh',
+    title: 'Tải nhanh MP3 320kbps Studio',
+    subtitle: 'Chất lượng CBR 320k cao nhất với ID3 tag & Album Art',
+    icon: Music,
+    hotkey: '⌥ + 1',
+  },
+  {
+    id: 'quick_flac',
+    category: 'Xuất âm thanh',
+    title: 'Tải nhanh FLAC Lossless 100%',
+    subtitle: 'Âm thanh phòng thu nguyên bản không nén',
+    icon: Sparkles,
+    hotkey: '⌥ + 2',
+  },
+  {
+    id: 'quick_video_1080p',
+    category: 'Xuất Video',
+    title: 'Tải nhanh Video 1080p 60fps Full HD',
+    subtitle: 'Định dạng MP4 tương thích mọi thiết bị',
+    icon: Video,
+    hotkey: '⌥ + 3',
+  },
+  {
+    id: 'quick_video_4k',
+    category: 'Xuất Video',
+    title: 'Tải nhanh Video 4K Ultra HD',
+    subtitle: 'Độ phân giải 2160p siêu sắc nét chuẩn HDR',
+    icon: Zap,
+    hotkey: '⌥ + 4',
+  },
+  {
+    id: 'switch_mode_focus',
+    category: 'Không gian làm việc',
+    title: 'Chuyển sang Focus Studio Mode',
+    subtitle: 'Ẩn sidebar, mở rộng khu vực biên tập & timeline sóng âm',
+    icon: Layers,
+    hotkey: 'F',
+  },
+  {
+    id: 'switch_mode_workstation',
+    category: 'Không gian làm việc',
+    title: 'Chuyển sang Workstation Mode (3 cột)',
+    subtitle: 'Hiển thị đầy đủ động cơ, bàn làm việc và inspector',
+    icon: Layers,
+    hotkey: 'W',
+  },
+  {
+    id: 'open_watcher',
+    category: 'Tự động hóa',
+    title: 'Mở Quản lý Kênh Theo Dõi (Auto-Watcher)',
+    subtitle: 'Tự động quét và tải video/nhạc mới từ kênh đã đăng ký',
+    icon: Radio,
+    hotkey: '⌥ + W',
+  },
+  {
+    id: 'open_cloud',
+    category: 'Đám mây',
+    title: 'Mở Cấu hình Đồng Bộ Telegram & Drive',
+    subtitle: 'Tự động chuyển file đã xuất về Telegram Bot cá nhân',
+    icon: Cloud,
+    hotkey: '⌥ + T',
+  },
+  {
+    id: 'open_settings',
+    category: 'Hệ thống',
+    title: 'Mở Cài đặt Cookie & Proxy',
+    subtitle: 'Vượt giới hạn độ tuổi và YouTube Bot Challenge',
+    icon: Settings,
+    hotkey: '⌘ + ,',
+  },
+  {
+    id: 'clear_history',
+    category: 'Hệ thống',
+    title: 'Xóa toàn bộ lịch sử tải về',
+    subtitle: 'Dọn sạch danh sách các tệp đã tải trong phiên',
+    icon: Trash2,
+  },
+];
+
 export const CommandPalette: React.FC<CommandPaletteProps> = ({
   isOpen,
   onClose,
@@ -40,106 +130,24 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const commands: CommandItem[] = [
-    {
-      id: 'paste_url',
-      category: 'Thao tác nhanh',
-      title: 'Dán link từ Clipboard',
-      subtitle: 'Tự động quét và phân tích link YouTube trong bộ nhớ tạm',
-      icon: Clipboard,
-      hotkey: '⌘ + V',
-    },
-    {
-      id: 'quick_mp3_320k',
-      category: 'Xuất âm thanh',
-      title: 'Tải nhanh MP3 320kbps Studio',
-      subtitle: 'Chất lượng CBR 320k cao nhất với ID3 tag & Album Art',
-      icon: Music,
-      hotkey: '⌥ + 1',
-    },
-    {
-      id: 'quick_flac',
-      category: 'Xuất âm thanh',
-      title: 'Tải nhanh FLAC Lossless 100%',
-      subtitle: 'Âm thanh phòng thu nguyên bản không nén',
-      icon: Sparkles,
-      hotkey: '⌥ + 2',
-    },
-    {
-      id: 'quick_video_1080p',
-      category: 'Xuất Video',
-      title: 'Tải nhanh Video 1080p 60fps Full HD',
-      subtitle: 'Định dạng MP4 tương thích mọi thiết bị',
-      icon: Video,
-      hotkey: '⌥ + 3',
-    },
-    {
-      id: 'quick_video_4k',
-      category: 'Xuất Video',
-      title: 'Tải nhanh Video 4K Ultra HD',
-      subtitle: 'Độ phân giải 2160p siêu sắc nét chuẩn HDR',
-      icon: Zap,
-      hotkey: '⌥ + 4',
-    },
-    {
-      id: 'switch_mode_focus',
-      category: 'Không gian làm việc',
-      title: 'Chuyển sang Focus Studio Mode',
-      subtitle: 'Ẩn sidebar, mở rộng khu vực biên tập & timeline sóng âm',
-      icon: Layers,
-      hotkey: 'F',
-    },
-    {
-      id: 'switch_mode_workstation',
-      category: 'Không gian làm việc',
-      title: 'Chuyển sang Workstation Mode (3 cột)',
-      subtitle: 'Hiển thị đầy đủ động cơ, bàn làm việc và inspector',
-      icon: Layers,
-      hotkey: 'W',
-    },
-    {
-      id: 'open_watcher',
-      category: 'Tự động hóa',
-      title: 'Mở Quản lý Kênh Theo Dõi (Auto-Watcher)',
-      subtitle: 'Tự động quét và tải video/nhạc mới từ kênh đã đăng ký',
-      icon: Radio,
-      hotkey: '⌥ + W',
-    },
-    {
-      id: 'open_cloud',
-      category: 'Đám mây',
-      title: 'Mở Cấu hình Đồng Bộ Telegram & Drive',
-      subtitle: 'Tự động chuyển file đã xuất về Telegram Bot cá nhân',
-      icon: Cloud,
-      hotkey: '⌥ + T',
-    },
-    {
-      id: 'open_settings',
-      category: 'Hệ thống',
-      title: 'Mở Cài đặt Cookie & Proxy',
-      subtitle: 'Vượt giới hạn độ tuổi và YouTube Bot Challenge',
-      icon: Settings,
-      hotkey: '⌘ + ,',
-    },
-    {
-      id: 'clear_history',
-      category: 'Hệ thống',
-      title: 'Xóa toàn bộ lịch sử tải về',
-      subtitle: 'Dọn sạch danh sách các tệp đã tải trong phiên',
-      icon: Trash2,
-    },
-  ];
-
-  const filtered = commands.filter(
+  const filtered = COMMAND_ITEMS.filter(
     (c) =>
       c.title.toLowerCase().includes(query.toLowerCase()) ||
       c.subtitle.toLowerCase().includes(query.toLowerCase()) ||
       c.category.toLowerCase().includes(query.toLowerCase())
   );
 
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
+  const filteredRef = React.useRef(filtered);
+  const selectedIndexRef = React.useRef(selectedIndex);
+  const onSelectActionRef = React.useRef(onSelectAction);
+  const onCloseRef = React.useRef(onClose);
+
+  React.useEffect(() => {
+    filteredRef.current = filtered;
+    selectedIndexRef.current = selectedIndex;
+    onSelectActionRef.current = onSelectAction;
+    onCloseRef.current = onClose;
+  });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -147,30 +155,32 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
       if (e.key === 'Escape') {
         e.preventDefault();
-        onClose();
+        onCloseRef.current();
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev + 1) % (filtered.length || 1));
+        setSelectedIndex((prev) => (prev + 1) % (filteredRef.current.length || 1));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev - 1 + (filtered.length || 1)) % (filtered.length || 1));
+        setSelectedIndex((prev) => (prev - 1 + (filteredRef.current.length || 1)) % (filteredRef.current.length || 1));
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (filtered[selectedIndex]) {
-          onSelectAction(filtered[selectedIndex].id, filtered[selectedIndex].payload);
-          onClose();
+        const currentFiltered = filteredRef.current;
+        const currentSelected = selectedIndexRef.current;
+        if (currentFiltered[currentSelected]) {
+          onSelectActionRef.current(currentFiltered[currentSelected].id, currentFiltered[currentSelected].payload);
+          onCloseRef.current();
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, filtered, selectedIndex, onClose, onSelectAction]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-black/50 backdrop-blur-md transition-all">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-black/60 transition-all">
       <div className="w-full max-w-2xl liquid-glass-modal rounded-3xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Search Bar Header */}
         <div className="flex items-center px-4 py-3.5 border-b border-white/10 gap-3 bg-white/[0.03]">
@@ -178,7 +188,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setSelectedIndex(0);
+            }}
             placeholder="Gõ lệnh hoặc tìm tính năng (MP3, 4K, Focus mode, Cài đặt...)"
             className="w-full bg-transparent text-sm sm:text-base text-[#F5EFEB] placeholder-[#C4B8B0]/60 focus:outline-none font-medium"
             autoFocus

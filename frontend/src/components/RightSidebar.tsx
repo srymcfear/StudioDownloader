@@ -15,7 +15,7 @@ interface RightSidebarProps {
   onOpenCloudSync?: () => void;
 }
 
-export const RightSidebar: React.FC<RightSidebarProps> = ({
+export const RightSidebar: React.FC<RightSidebarProps> = React.memo(({
   onOpenSettings,
   onOpenCommandPalette,
   onOpenChannelWatcher,
@@ -24,7 +24,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   return (
     <aside className="space-y-4">
       {/* Cloud & Auto-Watcher Suite (Plan 6) */}
-      <div className="glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-2.5">
+      <div className="liquid-glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-2.5">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg bg-purple-500/20 text-purple-400">
             <Radio className="w-3.5 h-3.5" />
@@ -70,7 +70,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
 
       {/* Quick Controls & Hotkeys */}
-      <div className="glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-3">
+      <div className="liquid-glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-3">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400">
             <Command className="w-3.5 h-3.5" />
@@ -108,7 +108,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
 
       {/* Security & Bypass Settings */}
-      <div className="glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-3">
+      <div className="liquid-glass-panel p-3.5 rounded-2xl border border-slate-800/90 shadow-xl space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">
@@ -139,4 +139,4 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
     </aside>
   );
-};
+});

@@ -19,7 +19,7 @@ interface PlaylistViewProps {
   activeBatchTotal?: number | null;
 }
 
-export const PlaylistView: React.FC<PlaylistViewProps> = ({
+export const PlaylistView: React.FC<PlaylistViewProps> = React.memo(({
   playlist,
   onDownloadItem,
   onDownloadBatchDirect,
@@ -71,7 +71,7 @@ export const PlaylistView: React.FC<PlaylistViewProps> = ({
   const selectedCount = selectedIds.size;
 
   return (
-    <div className="w-full glass-panel rounded-2xl p-4 sm:p-6 border border-slate-800/90 shadow-xl space-y-4">
+    <div className="w-full liquid-glass-panel rounded-2xl p-4 sm:p-6 border border-slate-800/90 shadow-xl space-y-4">
       {/* Playlist Info Header */}
       <div className="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-slate-800">
         <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export const PlaylistView: React.FC<PlaylistViewProps> = ({
 
                 <div className="relative w-12 h-8 rounded-lg overflow-hidden bg-slate-900 flex-shrink-0">
                   {item.thumbnail ? (
-                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
+                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-600">
                       {idx + 1}
@@ -263,4 +263,4 @@ export const PlaylistView: React.FC<PlaylistViewProps> = ({
       </div>
     </div>
   );
-};
+});

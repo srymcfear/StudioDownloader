@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import type { TaskProgress } from '../types';
 import {
   Layers,
@@ -17,28 +17,30 @@ interface FloatingQueueDockProps {
   onClearCompleted?: () => void;
 }
 
-export const FloatingQueueDock: React.FC<FloatingQueueDockProps> = ({
+export const FloatingQueueDock: React.FC<FloatingQueueDockProps> = React.memo(({
   activeTasks,
   onRemoveTask,
   onClearCompleted,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (activeTasks.length === 0) return null;
-
-  const runningTasks = activeTasks.filter(
+  const runningTasks = useMemo(() => activeTasks.filter(
     (t) => t.status !== 'completed' && t.status !== 'error'
-  );
-  const completedTasks = activeTasks.filter((t) => t.status === 'completed');
+  ), [activeTasks]);
+  
+  const completedTasks = useMemo(() => activeTasks.filter((t) => t.status === 'completed'), [activeTasks]);
 
-  const avgPercent =
+  const avgPercent = useMemo(() =>
     activeTasks.length > 0
       ? activeTasks.reduce((acc, t) => acc + (t.percent || 0), 0) / activeTasks.length
-      : 0;
+      : 0
+  , [activeTasks]);
+
+  if (activeTasks.length === 0) return null;
 
   return (
     <div className="fixed bottom-4 right-4 sm:right-6 z-40 max-w-md w-full px-2 sm:px-0">
-      <div className="glass-panel rounded-2xl border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden backdrop-blur-xl transition-all duration-300">
+      <div className="liquid-glass-panel rounded-2xl border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300">
         {/* Floating Bar Header (Always Visible) */}
         <div
           onClick={() => setIsExpanded(!isExpanded)}
@@ -184,4 +186,4 @@ export const FloatingQueueDock: React.FC<FloatingQueueDockProps> = ({
       </div>
     </div>
   );
-};
+});

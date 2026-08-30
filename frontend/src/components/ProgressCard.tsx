@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { TaskProgress } from '../types';
 import { Download, Loader2, CheckCircle2, AlertTriangle, Cpu, Zap, Clock, RotateCcw } from 'lucide-react';
 
@@ -7,44 +7,26 @@ interface ProgressCardProps {
   onReset: () => void;
 }
 
-export const ProgressCard: React.FC<ProgressCardProps> = ({ progress, onReset }) => {
-  const [isSaving, setIsSaving] = useState(false);
-
+export const ProgressCard: React.FC<ProgressCardProps> = React.memo(({ progress, onReset }) => {
   if (!progress) return null;
 
   const isCompleted = progress.status === 'completed';
   const isError = progress.status === 'error';
   const isMerging = progress.status === 'merging' || progress.status === 'converting' || progress.status === 'trimming';
 
-  const handleDownloadFile = async (e: React.MouseEvent) => {
+  const handleDownloadFile = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!progress.download_url) return;
-
-    try {
-      setIsSaving(true);
-      const response = await fetch(progress.download_url);
-      if (!response.ok) {
-        throw new Error('Không thể tải file, máy chủ trả về lỗi.');
-      }
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = progress.filename || 'media_file.mp3';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (err: any) {
-      console.warn('Fallback direct download:', err);
-      window.location.assign(progress.download_url);
-    } finally {
-      setIsSaving(false);
-    }
+    const link = document.createElement('a');
+    link.href = progress.download_url;
+    link.download = progress.filename || 'media_file.mp3';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="w-full glass-panel rounded-2xl p-5 sm:p-7 border border-blue-500/30 shadow-xl space-y-5">
+    <div className="w-full liquid-glass-panel rounded-2xl p-5 sm:p-7 border border-blue-500/30 shadow-xl space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -97,12 +79,12 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ progress, onReset })
         <div className="space-y-2">
           <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
             <div
-              className={`h-full rounded-full transition-all duration-300 ${
+              className={`h-full w-full rounded-full origin-left transition-transform duration-100 ease-out ${
                 isCompleted
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
                   : 'bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600'
               }`}
-              style={{ width: `${Math.max(3, progress.percent)}%` }}
+              style={{ transform: `scaleX(${Math.max(0.03, progress.percent / 100)})` }}
             />
           </div>
 
@@ -142,19 +124,10 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ progress, onReset })
         <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
           <button
             type="button"
-            disabled={isSaving}
             onClick={handleDownloadFile}
             className="w-full sm:flex-1 flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-50 text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all transform active:scale-98 cursor-pointer"
           >
-            {isSaving ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" /> ĐANG LƯU FILE VỀ MÁY...
-              </>
-            ) : (
-              <>
-                <Download className="w-5 h-5" /> TẢI FILE VỀ MÁY NGAY
-              </>
-            )}
+            <Download className="w-5 h-5" /> TẢI FILE VỀ MÁY NGAY
           </button>
 
           <button
@@ -168,4 +141,4 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ progress, onReset })
       )}
     </div>
   );
-};
+});

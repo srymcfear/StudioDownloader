@@ -25,4 +25,6 @@ async def start_periodic_cleanup():
                         pass
         except Exception:
             pass
+        from app.services.task_manager import task_manager
+        task_manager.cleanup_expired_tasks()
         await asyncio.sleep(600)  # Check every 10 minutes

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Header, type WorkspaceMode } from './components/Header';
 import { UrlInput } from './components/UrlInput';
 import { MediaInfoCard } from './components/MediaInfoCard';
@@ -39,6 +39,18 @@ import {
 } from 'lucide-react';
 
 export function App() {
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      const video = document.querySelector('video') as HTMLVideoElement | null;
+      if (video) {
+        if (document.hidden) video.pause();
+        else video.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
   const [serverOnline, setServerOnline] = useState(false);
   const [systemInfo, setSystemInfo] = useState<{ ffmpeg: string; ytdlp: string } | null>(null);
   const [isLoadingInfo, setIsLoadingInfo] = useState(false);
@@ -80,7 +92,7 @@ export function App() {
   const [aiSummaryData, setAiSummaryData] = useState<AISummaryData | null>(null);
   const [isAISummaryLoading, setIsAISummaryLoading] = useState(false);
 
-  const handleOpenAISummary = async () => {
+  const handleOpenAISummary = useCallback(async () => {
     if (!mediaInfo) return;
     setIsAISummaryOpen(true);
     if (aiSummaryData && aiSummaryData.title === mediaInfo.title) {
@@ -100,13 +112,13 @@ export function App() {
     } finally {
       setIsAISummaryLoading(false);
     }
-  };
+  }, [mediaInfo, aiSummaryData]);
 
   // Switch workspace mode and persist
-  const handleWorkspaceModeChange = (mode: WorkspaceMode) => {
+  const handleWorkspaceModeChange = useCallback((mode: WorkspaceMode) => {
     setWorkspaceMode(mode);
     localStorage.setItem('tubestudio_workspace_mode', mode);
-  };
+  }, []);
 
   // Load history on mount
   useEffect(() => {
@@ -135,10 +147,10 @@ export function App() {
     });
   };
 
-  const handleClearHistory = () => {
+  const handleClearHistory = useCallback(() => {
     setHistory([]);
     localStorage.removeItem('tubestudio_history');
-  };
+  }, []);
 
   const triggerBrowserFileDownload = (url: string, filename?: string) => {
     const link = document.createElement('a');
@@ -472,22 +484,31 @@ export function App() {
     });
   };
 
-  const handleReset = () => {
+
+  const openCommandPalette = useCallback(() => setIsCommandPaletteOpen(true), []);
+  const closeCommandPalette = useCallback(() => setIsCommandPaletteOpen(false), []);
+  const openSettings = useCallback(() => setIsSettingsOpen(true), []);
+  const closeSettings = useCallback(() => setIsSettingsOpen(false), []);
+  const openHistory = useCallback(() => setIsHistoryOpen(true), []);
+  const closeHistory = useCallback(() => setIsHistoryOpen(false), []);
+  const closeChannelWatcher = useCallback(() => setIsChannelWatcherOpen(false), []);
+  const closeCloudSync = useCallback(() => setIsCloudSyncOpen(false), []);
+  const closeAISummary = useCallback(() => setIsAISummaryOpen(false), []);
+
+  const handleReset = useCallback(() => {
     setCurrentProgress(null);
     setIsDownloading(false);
     setActiveBatchIndex(null);
     setActiveBatchTotal(null);
-  };
+  }, []);
 
-  const activeQueueCount = allActiveTasks.filter(
-    (t) => t.status !== 'completed' && t.status !== 'error'
-  ).length;
+  const activeQueueCount = useMemo(() => allActiveTasks.filter((t) => t.status !== 'completed' && t.status !== 'error').length, [allActiveTasks]);
 
-  const handleDeleteHistoryItem = (id: string) => {
+  const handleDeleteHistoryItem = useCallback((id: string) => {
     const updated = history.filter((item) => item.id !== id);
     setHistory(updated);
     localStorage.setItem('tubestudio_download_history', JSON.stringify(updated));
-  };
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-transparent text-slate-100 flex flex-col font-sans selection:bg-[#F95721]/30 selection:text-white">
@@ -520,9 +541,9 @@ export function App() {
       <Header
         workspaceMode={workspaceMode}
         onWorkspaceModeChange={handleWorkspaceModeChange}
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenHistory={() => setIsHistoryOpen(true)}
+        onOpenCommandPalette={openCommandPalette}
+        onOpenSettings={openSettings}
+        onOpenHistory={openHistory}
         historyCount={history.length}
         activeQueueCount={activeQueueCount}
         serverOnline={serverOnline}
@@ -653,7 +674,7 @@ export function App() {
       {/* Command Palette Modal (Cmd+K) */}
       <CommandPalette
         isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
+        onClose={closeCommandPalette}
         onSelectAction={handleCommandAction}
       />
 
@@ -676,7 +697,7 @@ export function App() {
       {/* Modals */}
       <SettingsModal
         isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
+        onClose={closeSettings}
         proxy={proxy}
         onSaveProxy={setProxy}
         systemInfo={systemInfo}
@@ -684,7 +705,7 @@ export function App() {
 
       <DownloadHistory
         isOpen={isHistoryOpen}
-        onClose={() => setIsHistoryOpen(false)}
+        onClose={closeHistory}
         history={history}
         onClearHistory={handleClearHistory}
       />
@@ -692,19 +713,19 @@ export function App() {
       {/* Channel Auto-Watcher Modal (Plan 6) */}
       <ChannelWatcherModal
         isOpen={isChannelWatcherOpen}
-        onClose={() => setIsChannelWatcherOpen(false)}
+        onClose={closeChannelWatcher}
       />
 
       {/* Cloud Sync & Telegram Modal (Plan 6) */}
       <CloudSyncModal
         isOpen={isCloudSyncOpen}
-        onClose={() => setIsCloudSyncOpen(false)}
+        onClose={closeCloudSync}
       />
 
       {/* AI Video Summary & Chapter Breakdown Modal (Plan 2) */}
       <AISummaryModal
         isOpen={isAISummaryOpen}
-        onClose={() => setIsAISummaryOpen(false)}
+        onClose={closeAISummary}
         summaryData={aiSummaryData}
         isLoading={isAISummaryLoading}
         onSelectTimestamp={(sec) => {
